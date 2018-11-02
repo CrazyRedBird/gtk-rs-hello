@@ -7,7 +7,7 @@ fn main() {
 
     let window = gtk::Window::new(gtk::WindowType::Toplevel);
     window.set_property_default_width(300);
-    window.set_title("GTK+ Hello");
+    window.set_title("Gtk-rs Hello");
     window.set_resizable(false);
     let layout = gtk::Box::new(gtk::Orientation::Vertical, 0);
     let message = gtk::Label::new("Hello, world!");
