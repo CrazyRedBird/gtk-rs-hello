@@ -1,0 +1,10 @@
+[package]
+name = "gtk-src-hello"
+version = "0.1.0"
+authors = ["CrazyRedBird <kyoukinoakaitori@foxmail.com>"]
+edition = "2018"
+
+[dependencies.gtk]
+version = "^0.5"
+default-features = false
+features = ["v3_10"]
