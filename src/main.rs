@@ -10,7 +10,7 @@ fn main() {
     window.set_title("Gtk-rs Hello");
     window.set_resizable(false);
     let layout = gtk::Box::new(gtk::Orientation::Vertical, 0);
-    let message = gtk::Label::new("Hello, world!");
+    let message = gtk::Label::new(Some("Hello, world!"));
     layout.add(&message);
     let close = gtk::Button::new_with_label("Close");
     layout.add(&close);
