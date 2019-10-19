@@ -1,9 +1,8 @@
 [package]
-name = "gtk-src-hello"
+name = "gtk-rs-hello"
 version = "0.1.0"
 authors = ["CrazyRedBird <crazyredbird@foxmail.com>"]
 edition = "2018"
 
 [dependencies.gtk]
-git = "https://github.com/gtk-rs/gtk"
-features = ["v3_22"]
+version = "*"
