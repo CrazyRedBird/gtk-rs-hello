@@ -1,27 +1,31 @@
-use gtk::prelude::*;
+use {gio::prelude::*, glib::clone, gtk::prelude::*, std::env};
 
 fn main() {
-    if gtk::init().is_err() {
-        panic!("GTK+ initialization failed");
-    }
+    let application = gtk::Application::new(
+        Some("org.crazynest.gtk-hello"),
+        gio::ApplicationFlags::empty(),
+    )
+    .expect("Failed to initialize GTK.");
 
-    let window = gtk::Window::new(gtk::WindowType::Toplevel);
-    window.set_property_default_width(300);
-    window.set_title("Gtk-rs Hello");
-    window.set_resizable(false);
-    let layout = gtk::Box::new(gtk::Orientation::Vertical, 0);
-    let message = gtk::Label::new(Some("Hello, world!"));
-    layout.add(&message);
-    let close = gtk::Button::new_with_label("Close");
-    layout.add(&close);
-    window.add(&layout);
-    window.show_all();
+    application.connect_activate(|app| {
+        let window = gtk::ApplicationWindow::new(app);
+        window.set_property_default_width(300);
+        window.set_title("Gtk-rs Hello");
+        window.set_resizable(false);
 
-    window.connect_delete_event(|_, _| {
-        gtk::main_quit();
-        Inhibit(false)
+        let layout = gtk::Box::new(gtk::Orientation::Vertical, 0);
+
+        let message = gtk::Label::new(Some("Hello, world!"));
+        layout.add(&message);
+
+        let close = gtk::Button::new_with_label("Close");
+        close.connect_clicked(clone!(@weak window => move |_| window.close()));
+        layout.add(&close);
+
+        window.add(&layout);
+
+        window.show_all();
     });
-    close.connect_clicked(move |_| window.close());
 
-    gtk::main();
+    application.run(&env::args().collect::<Vec<_>>());
 }

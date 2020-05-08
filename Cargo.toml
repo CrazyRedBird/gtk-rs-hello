@@ -4,5 +4,7 @@ version = "0.1.0"
 authors = ["CrazyRedBird <crazyredbird@foxmail.com>"]
 edition = "2018"
 
-[dependencies.gtk]
-version = "*"
+[dependencies]
+gio = "*"
+glib = "*"
+gtk = "*"
