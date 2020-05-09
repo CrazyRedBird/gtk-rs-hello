@@ -1,24 +1,30 @@
 use {gio::prelude::*, glib::clone, gtk::prelude::*, std::env};
 
 fn main() {
-    let application = gtk::Application::new(
-        Some("org.crazynest.gtk-hello"),
-        gio::ApplicationFlags::empty(),
-    )
-    .expect("Failed to initialize GTK.");
+    if gtk::init().is_err() {
+        panic!("Failed to initialize GTK.");
+    }
+
+    let application = gtk::ApplicationBuilder::new()
+        .application_id("org.crazynest.gtk-hello")
+        .build();
 
     application.connect_activate(|app| {
-        let window = gtk::ApplicationWindow::new(app);
-        window.set_property_default_width(300);
-        window.set_title("Gtk-rs Hello");
-        window.set_resizable(false);
+        let window = gtk::ApplicationWindowBuilder::new()
+            .application(app)
+            .default_width(300)
+            .resizable(false)
+            .title("Gtk-rs Hello")
+            .build();
 
-        let layout = gtk::Box::new(gtk::Orientation::Vertical, 0);
+        let layout = gtk::BoxBuilder::new()
+            .orientation(gtk::Orientation::Vertical)
+            .build();
 
-        let message = gtk::Label::new(Some("Hello, world!"));
+        let message = gtk::LabelBuilder::new().label("Hello, world!").build();
         layout.add(&message);
 
-        let close = gtk::Button::new_with_label("Close");
+        let close = gtk::ButtonBuilder::new().label("Close").build();
         close.connect_clicked(clone!(@weak window => move |_| window.close()));
         layout.add(&close);
 
