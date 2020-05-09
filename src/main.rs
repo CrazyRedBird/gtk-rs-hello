@@ -1,9 +1,7 @@
 use {gio::prelude::*, glib::clone, gtk::prelude::*, std::env};
 
 fn main() {
-    if gtk::init().is_err() {
-        panic!("Failed to initialize GTK.");
-    }
+    gtk::init().expect("Failed to initialize GTK.");
 
     let application = gtk::ApplicationBuilder::new()
         .application_id("org.crazynest.gtk-hello")
